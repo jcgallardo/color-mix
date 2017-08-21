@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ColorMix</string>
+    <string name="desc_welcome">MEZCLA tus colores para obtener otros nuevos y ¡Descubre un mundo lleno de color!</string>
 </resources>

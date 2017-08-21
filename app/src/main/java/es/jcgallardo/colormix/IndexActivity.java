@@ -1,22 +1,27 @@
 package es.jcgallardo.colormix;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Handler;
 
-public class IndexActivity extends AppCompatActivity {
+public class IndexActivity extends Activity {
+    private static int TIME_OUT = 1000; //Time to launch the another activity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index);
 
-        // Paramos la ejecución 5s
-        //SystemClock.sleep(5000);
-
-        //Una vez despierto cambiamos a la pantalla de bienvenida
-        Intent Welcome = new Intent(getApplicationContext(), WelcomeActivity.class);
-        //startActivity(Welcome);
-
+        // Creamos una hebra la cual ejecutará el método run después del TIMEOUT estblecido
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent Welcome = new Intent(getApplicationContext(), WelcomeActivity.class);
+                startActivity(Welcome);
+                finish();
+            }
+        }, TIME_OUT);
     }
 }

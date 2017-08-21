@@ -4,12 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/wallpaper"
+    android:scaleType="centerCrop"
     tools:context="es.jcgallardo.colormix.IndexActivity">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:background="@android:color/background_dark"
+        android:text="Color MIX"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:textSize="40dp"
+        android:padding="90dp"
+        android:alpha="0.6"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

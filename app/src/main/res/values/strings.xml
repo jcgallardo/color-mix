@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">ColorMix</string>
-    <string name="desc_welcome">MEZCLA tus colores para obtener otros nuevos y ¡Descubre un mundo lleno de color!</string>
+    <string name="desc_welcome">MEZCLA tus colores para obtener otros nuevos y descubre un mundo lleno de </string>
+    <string name="plus">+</string>
+    <string name="painting_image_orange">Painting image orange</string>
+    <string name="painting_image_red">Painting image red</string>
+    <string name="painting_image_yellow">Painting image yellow</string>
+    <string name="comenzar">Comenzar</string>
+    <string name="color">COLOR</string>
+    <string name="title_activity_main">Color MIX</string>
+    <string name="title_borrar">Borrar</string>
+    <string name="title_paleta">Paleta</string>
+    <string name="title_principal">Color MIX</string>
 </resources>

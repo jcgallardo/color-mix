@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6ab344</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#009688</color>
+    <color name="colorPrimaryDark">#00796B</color>
+    <color name="colorPrimaryLight">#B2DFDB</color>
+
+    <color name="primaryText">#FFF</color>
+
+    <color name="tab_enable">#FFF</color>
+    <color name="tab_disable">#BBB</color>
+
+    <color name="colorAccent">#FFC107</color>
     <color name="red">#FF0000</color>
     <color name="yellow">#FFFF00</color>
     <color name="orange">#FFAA00</color>
     <color name="black">#000</color>
     <color name="teal">#009688</color>
     <color name="light_grey">#EEE</color>
+    <color name="dark_grey">#777</color>
+    <color name="primary_light">#B2DFDB</color>
+    <color name="white">#FFFFFF</color>
 </resources>

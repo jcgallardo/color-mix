@@ -11,4 +11,10 @@
     <string name="title_borrar">Borrar</string>
     <string name="title_paleta">Paleta</string>
     <string name="title_principal">Color MIX</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_principal_fragment">ColorMIX</string>
+    <string name="hello_paleta_fragment">Paleta</string>
+    <string name="principal_fragment_title">¡Pulsa sobre la paleta y mezcla los colores que más te gusten!</string>
 </resources>

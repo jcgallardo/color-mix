@@ -6,12 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import es.jcgallardo.colormix.R;
 
 public class PrincipalFragment extends Fragment {
     private ImageView painting_draw;
-    //private ArrayList<Integer> colores_mezclados = new ArrayList<>();
+    private TextView textColor;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -20,12 +21,13 @@ public class PrincipalFragment extends Fragment {
 
         //Instanciamos objetos
         this.painting_draw = (ImageView) view.findViewById(R.id.painting_draw);
+        this.textColor = (TextView) view.findViewById(R.id.textColor);
         Bundle bundle = getArguments();
 
         if (bundle != null && bundle.get("COLOR") != null){
             int color = (int) bundle.get("COLOR");
-            //colores_mezclados.add(color);
             this.painting_draw.setColorFilter(color);
+            this.textColor.setBackgroundColor(color);
         }
 
         // Devolvemos vista

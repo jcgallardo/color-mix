@@ -8,13 +8,34 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.ImageView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import es.jcgallardo.colormix.ItemsFragments.PaletaFragment;
 import es.jcgallardo.colormix.ItemsFragments.PrincipalFragment;
+import es.jcgallardo.colormix.models.MiColor;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
-    ImageView painting_draw;
+    ArrayList<Integer> lista_colores;
+    HashMap<Integer,MiColor> colores;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        // Inicializamos
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(this);
+        lista_colores = new ArrayList<>();
+        colores = new HashMap<Integer, MiColor>();
+
+        // Seleccionamos el principal para que se pulse por defecto
+        navigation.setSelectedItemId(R.id.navigation_principal);
+
+        this.addFragment();
+    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -32,9 +53,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 break;
             case R.id.navigation_principal:
                 fragment = new PrincipalFragment();
+
+                // nos creamos el color y lo añadimos tanto a la lista como al Bundle de PrincipalFragment
+                int color = Color.rgb(255,255,0);
+                lista_colores.add(color);
+                System.out.println(lista_colores.toString());
                 Bundle bundle = new Bundle();
-                bundle.putInt("COLOR",Color.rgb(255,255,0));
+                bundle.putInt("COLOR",color);
                 fragment.setArguments(bundle);
+
                 break;
         }
 
@@ -43,19 +70,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             replaceFragment(fragment);
 
         return true;
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        // Inicializamos
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(this);
-        navigation.setSelectedItemId(R.id.navigation_principal);
-
-        this.addFragment();
     }
 
     private void addFragment() {

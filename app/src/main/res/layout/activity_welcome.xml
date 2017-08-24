@@ -36,9 +36,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/desc_welcome"
                 android:textAlignment="center"
-                android:fontFamily="cursive"
+                android:fontFamily="casual"
                 android:textColor="#FFF"
-                android:textSize="32sp" />
+                android:textSize="24sp" />
 
             <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"

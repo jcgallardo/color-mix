@@ -17,4 +17,6 @@
     <string name="hello_principal_fragment">ColorMIX</string>
     <string name="hello_paleta_fragment">Paleta</string>
     <string name="principal_fragment_title">¡Pulsa sobre la paleta y mezcla los colores que más te gusten!</string>
+    <string name="mi_color_seleccionado">Mi color seleccionado</string>
+    <string name="dibujo_mezclado">Dibujo mezclado</string>
 </resources>

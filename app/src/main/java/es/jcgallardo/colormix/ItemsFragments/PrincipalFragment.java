@@ -24,8 +24,8 @@ public class PrincipalFragment extends Fragment {
         this.textColor = (TextView) view.findViewById(R.id.textColor);
         Bundle bundle = getArguments();
 
-        if (bundle != null && bundle.get("COLOR") != null){
-            int color = (int) bundle.get("COLOR");
+        if (bundle != null && bundle.get("color") != null){
+            int color = (int) bundle.get("color");
             this.painting_draw.setColorFilter(color);
             this.textColor.setBackgroundColor(color);
         }

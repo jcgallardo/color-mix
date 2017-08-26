@@ -1,11 +1,31 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="es.jcgallardo.colormix.ItemsFragments.PrincipalFragment">
+    android:layout_height="wrap_content"
+    android:paddingTop="30dp"
+    tools:context="es.jcgallardo.colormix.ItemsFragments.PrincipalFragment"
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:textAlignment="center"
+        android:textSize="22sp"
+        android:fontFamily="casual"
         android:text="@string/hello_paleta_fragment" />
-</FrameLayout>
+
+    <GridView
+        android:id="@+id/contendor_colores"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="30dp"
+        android:paddingBottom="30dp"
+        android:columnWidth="90dp"
+        android:gravity="center"
+        android:horizontalSpacing="10dp"
+        android:verticalSpacing="30dp"
+        android:background="@color/light_grey"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth"
+        tools:ignore="NestedScrolling" />
+</LinearLayout>

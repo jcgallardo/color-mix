@@ -6,7 +6,7 @@ import android.graphics.Color;
  * Created by jcgallardo on 24/08/2017.
  */
 
-class MiColor {
+public class MiColor {
     private int color;
     private int colorTextColor;
     private String labelColor;

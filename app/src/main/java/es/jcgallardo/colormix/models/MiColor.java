@@ -2,6 +2,8 @@ package es.jcgallardo.colormix.models;
 
 import android.graphics.Color;
 
+import es.jcgallardo.colormix.R;
+
 /**
  * Created by jcgallardo on 24/08/2017.
  */
@@ -16,6 +18,17 @@ public class MiColor {
     private int alpha;
 
     // CONSTRUCTORS
+
+    public MiColor(int c){
+        this.r = Color.red(c);
+        this.g = Color.green(c);
+        this.b = Color.blue(c);
+        this.alpha = Color.alpha(c);
+
+        this.color = Color.argb(this.alpha, this.r, this.g, this.b);
+        this.colorTextColor = R.color.black;
+        this.labelColor = "undefined";
+    }
 
     /**
      *

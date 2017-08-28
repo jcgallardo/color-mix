@@ -1,5 +1,6 @@
 package es.jcgallardo.colormix;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,6 +21,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     ArrayList<MiColor> colores_seleccionados = new ArrayList<>();
     private MiColor[] colores;
     private Bundle miBundle;
+    private NameFragment fr_old;
+    private NameFragment fr_new;
 
     public MiColor[] getColores(){
         return colores;
@@ -29,12 +32,22 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         // si no existe lo añadimos, si existe mostramos un TOAST de error.
         if (colores_seleccionados.indexOf(colores[position]) < 0) {
             int seleccionados = colores_seleccionados.size();
+
+            // Guardamos el viejo valor del color o ponemos por defecto blanco para hacer la animación de colores
+            if (!colores_seleccionados.isEmpty())
+                miBundle.putInt("oldColor",colores_seleccionados.get(colores_seleccionados.size()-1).getColor());
+            else
+                miBundle.putInt("oldColor", Color.rgb(255,255,255));
+
             colores_seleccionados.add(colores[position]);
             int seleccionados_new = colores_seleccionados.size();
 
             if (seleccionados_new > seleccionados) {
                 // nos creamos el color y lo añadimos tanto a la lista como al Bundle de PrincipalFragment
                 miBundle.putBoolean("modificado", true);
+                miBundle.putString("lastColorLabel",colores[position].getLabelColor());
+                miBundle.putInt("lastColorColor",colores[position].getColor());
+                miBundle.putInt("lastColorText",colores[position].getColorTextColor());
             }
 
 
@@ -64,8 +77,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         // Seleccionamos el principal para que se pulse por defecto
         navigation.setSelectedItemId(R.id.navigation_principal);
+        this.fr_old = null;
+        this.fr_new = NameFragment.PRINCIPAL;
 
         this.addFragment();
+    }
+
+    private void changeAnimation(NameFragment frag){
+        this.fr_old = this.fr_new;
+        this.fr_new = frag;
     }
 
     /**
@@ -73,12 +93,28 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
      * @return colores como Array
      */
     private MiColor[] inflateColors() {
+        int grey = Color.rgb(50,50,50);
+        int white = Color.rgb(255,255,255);
+
         return new MiColor[]{
-           new MiColor(255, 0, 0, R.color.black, "rojo"),
-           new MiColor(255,255,0,R.color.black, "amarillo"),
-           new MiColor(0,255,0, R.color.black, "verde"),
-           new MiColor(0,0,255,R.color.black, "azul"),
-           new MiColor(255, 164, 32, R.color.white, "naranja")
+                new MiColor(255,0,0,white, "rojo"),
+                new MiColor(255,255,0,grey, "amarillo"),
+                new MiColor(0,255,0,grey, "verde"),
+                new MiColor(0,0,255,white, "azul cyan"),
+                new MiColor(255,164,32,white, "naranja"),
+                new MiColor(141,73,37,white, "marrrón"),
+                new MiColor(163,73,164,white, "morado"),
+                new MiColor(231,161,255,grey, "lila"),
+                new MiColor(0,0,0,white, "negro"),
+                new MiColor(96,201,246,grey, "azul claro"),
+                new MiColor(230,214,64,grey, "dorado"),
+                new MiColor(130,130,130,white, "gris"),
+                new MiColor(0,128,128,white, "teal"),
+                new MiColor(255,255,255, grey, "blanco"),
+                new MiColor(252,255,144,grey, "amarillo claro"),
+                new MiColor(53,209,95,grey, "verde claro"),
+                new MiColor(185,25,20,white, "rojo oscuro")
+
        };
     }
 
@@ -93,10 +129,25 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         switch (item.getItemId()) {
             case R.id.navigation_borrar:
                 // restaurar ocolor
-                break;
-            case R.id.navigation_paleta:
-                fragment = new PaletaFragment();
-                break;
+                new AlertDialog.Builder(this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Comenzar de nuevo")
+                        .setMessage("¿Estás seguro de que deseas eliminar todos los colores seleccionados y comenzar la mezcla desde el principio?")
+                        .setPositiveButton("Sí", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                miBundle.clear();
+                                colores_seleccionados.clear();
+
+                                Fragment fragment = new PrincipalFragment();
+                                fragment.setArguments(miBundle);
+                                replaceFragment(fragment);
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+                        return false;
             case R.id.navigation_principal:
                 fragment = new PrincipalFragment();
 
@@ -105,8 +156,19 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     fragment.setArguments(miBundle);
                 }
 
+                // actualizamos el nombre del fragmento seleccionado
+                changeAnimation(NameFragment.PRINCIPAL);
+
                 break;
+            case R.id.navigation_paleta:
+                fragment = new PaletaFragment();
+
+                // actualizamos el nombre del fragmento a Paleta
+                changeAnimation(NameFragment.PALETA);
+                break;
+
         }
+
 
         // Reemplazamos el fragment
         if (fragment != null)
@@ -133,6 +195,17 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         return Color.argb(alpha,r, g, b);
     }
 
+    private int[] getAnimations(){
+
+        if(fr_old == NameFragment.PRINCIPAL && fr_new == NameFragment.PALETA)
+            return new int[]{android.R.anim.fade_in, android.R.anim.fade_out};
+        else if(fr_old == NameFragment.PALETA && fr_new == NameFragment.PRINCIPAL)
+            return new int[]{android.R.anim.fade_in, android.R.anim.fade_out};
+
+        return null;
+
+    }
+
     private void addFragment() {
         FragmentTransaction transation_fragment = getSupportFragmentManager().beginTransaction();
         transation_fragment.add(R.id.placeholder_fragment, new PrincipalFragment());
@@ -141,6 +214,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private void replaceFragment(Fragment fragment) {
         FragmentTransaction transation_fragment = getSupportFragmentManager().beginTransaction();
+
+        int animations[] = getAnimations();
+        if (animations != null) {
+            transation_fragment.setCustomAnimations(animations[0], animations[1]);
+        }
         transation_fragment.replace(R.id.placeholder_fragment, fragment);
         transation_fragment.commit();
     }

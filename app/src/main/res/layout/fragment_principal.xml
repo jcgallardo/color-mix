@@ -8,7 +8,6 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="50dp"
         tools:context="es.jcgallardo.colormix.ItemsFragments.PrincipalFragment"
         android:orientation="vertical">
 
@@ -16,6 +15,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="casual"
+            android:paddingTop="50dp"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
             android:text="@string/principal_fragment_title"
             android:textAlignment="center"
             android:textSize="18sp" />
@@ -23,6 +25,8 @@
         <ImageView
             android:id="@+id/painting_draw"
             android:layout_width="wrap_content"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
             android:layout_height="350dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
@@ -40,7 +44,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="@string/mi_color_seleccionado"
-            android:background="@color/colorAccent"
+            android:background="#BBB"
             android:textColor="@color/white"
             android:textAlignment="center"
             android:textSize="24sp"/>

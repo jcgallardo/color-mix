@@ -9,7 +9,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -48,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 miBundle.putString("lastColorLabel",colores[position].getLabelColor());
                 miBundle.putInt("lastColorColor",colores[position].getColor());
                 miBundle.putInt("lastColorText",colores[position].getColorTextColor());
+                // mandamos todos los colores
+                miBundle.putString("allColors",getStringSelectedColors());
             }
 
 
@@ -55,11 +60,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             navigation.setSelectedItemId(R.id.navigation_principal);
         }else{
             AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
-            builder1.setMessage("¡COLOR REPETIDO! \nPor favor selecciona otro de la paleta");
-            builder1.setIcon(R.drawable.paint);
-            builder1.setCancelable(true);
-            AlertDialog alert = builder1.create();
-            alert.show();
+            LayoutInflater factory = LayoutInflater.from(this);
+            final View view = factory.inflate(R.layout.alert, null);
+            ((TextView)view.findViewById(R.id.textoAlert)).setText("El color que has seleccionado ya está repetido");
+            builder1.setView(view);
+            builder1.setPositiveButton("¡Entendido!", null);
+
+            builder1.show();
         }
 
     }
@@ -118,6 +125,17 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
        };
     }
 
+    private String getStringSelectedColors(){
+        String cadena_parseada = "";
+        for (MiColor c : colores_seleccionados){
+            cadena_parseada += c.getColor() + "|";
+        }
+
+        cadena_parseada = cadena_parseada.substring(0,cadena_parseada.length()-1);
+
+        return cadena_parseada;
+    }
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -161,14 +179,25 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
                 break;
             case R.id.navigation_paleta:
-                fragment = new PaletaFragment();
+                if (colores_seleccionados.size() < 5) {
+                    fragment = new PaletaFragment();
 
-                // actualizamos el nombre del fragmento a Paleta
-                changeAnimation(NameFragment.PALETA);
-                break;
+                    // actualizamos el nombre del fragmento a Paleta
+                    changeAnimation(NameFragment.PALETA);
+                    break;
+                }else{
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+                    LayoutInflater factory = LayoutInflater.from(this);
+                    final View view = factory.inflate(R.layout.alert, null);
+                    ((TextView)view.findViewById(R.id.textoAlert)).setText("Has alcanzado el máximo número de colores, borra para volver a comenzar");
+                    builder1.setView(view);
+                    builder1.setPositiveButton("¡Entendido!", null);
 
+                    builder1.show();
+
+                    return false;
+                }
         }
-
 
         // Reemplazamos el fragment
         if (fragment != null)
